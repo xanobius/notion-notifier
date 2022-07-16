@@ -1,0 +1,30 @@
+{
+    "name": "xanobius/notify-notion",
+    "description": "Command to update notion.io information",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Xanobius\\NotifyNotion\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Philipp",
+            "email": "philipp@lauwiner.name"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php" : "^8.0",
+        "guzzlehttp/guzzle": "^7.4"
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.21"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
