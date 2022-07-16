@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Xanobius\NotifyNotion;
+namespace Xanobius\NotionNotifier;
 
 
 use Exception;
