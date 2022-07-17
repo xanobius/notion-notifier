@@ -26,11 +26,20 @@ class LaravelNotionNotifier extends NotionNotifier
         return collect(config('notion-notifier.patch'))
             ->filter(fn($item) => $item['active'])
             ->map(function($val, $type) {
-                return match ($type) {
+                $version = match ($type) {
                     'git' => $this->getGitVersion($val['last_proper'] ?? true),
                     'framework' => $this->getFrameworkVersion()
                 };
-            });
+
+                return [
+                    'prop' => $val['property'],
+                    'val' => $version,
+                    'label' => $type,
+                    'valid' => !empty($val['property']) && !empty($version)
+                ];
+            })
+            ->filter(fn($item) => $item['valid']) // final check to just submit proper pairs
+            ;
 
     }
 
