@@ -47,7 +47,8 @@ class LaravelNotionNotifier extends NotionNotifier
     {
         $abbrev = $lastProper ? ' --abbrev=0' : '';
         if (exec('git describe' . $abbrev, $out) )
-            return $out[0];
+            if (is_array($out))
+                return $out[0];
         return "undefined";
     }
 
