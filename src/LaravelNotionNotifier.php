@@ -46,8 +46,9 @@ class LaravelNotionNotifier extends NotionNotifier
     protected function getGitVersion($lastProper)
     {
         $abbrev = $lastProper ? ' --abbrev=0' : '';
-        exec('git describe' . $abbrev, $out);
-        return $out[0];
+        if (exec('git describe' . $abbrev, $out) )
+            return $out[0];
+        return "undefined";
     }
 
     protected function getFrameworkVersion()
