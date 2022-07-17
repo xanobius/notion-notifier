@@ -1,11 +1,11 @@
 {
-    "name": "xanobius/notify-notion",
+    "name": "xanobius/notion-notifier",
     "description": "Command to update notion.io information",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Xanobius\\NotifyNotion\\": "src/"
+            "Xanobius\\NotionNotifier\\": "src/"
         }
     },
     "authors": [
@@ -20,11 +20,23 @@
         "guzzlehttp/guzzle": "^7.4"
     },
     "require-dev": {
-        "pestphp/pest": "^1.21"
+        "pestphp/pest": "^1.21",
+        "orchestra/testbench": "^7.6"
     },
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true
+        }
+    },
+    "extra" : {
+        "laravel" : {
+            "providers" : [
+                "Xanobius\\NotionNotifier\\NotionNotifierServiceProvider"
+            ],
+            "aliases": {
+                "NotionNotifier" : "Xanobius\\NotionNotifier\\Facades\\NotionNotifier"
+            }
+
         }
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Xanobius\NotifyNotion;
+namespace Xanobius\NotionNotifier;
 
 
 use Exception;
@@ -72,7 +72,7 @@ class NotionNotifier
                     'body' => json_encode($payload)
                 ]);
         }catch(ClientException $exception) {
-            throw new Exception('Invalid Payload Data');
+            throw new Exception($exception->getMessage());
         }
 
         return $request;

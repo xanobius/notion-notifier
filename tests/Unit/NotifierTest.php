@@ -6,7 +6,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Xanobius\NotifyNotion\NotionNotifier;
+use Xanobius\NotionNotifier\NotionNotifier;
 
 $errorMock = new MockHandler([
     new RequestException('Error Communicationg with Server', new Request('GET', 'test'))
