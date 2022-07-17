@@ -4,12 +4,47 @@
 namespace Xanobius\NotionNotifier;
 
 
+use GuzzleHttp\Client;
+
 class LaravelNotionNotifier extends NotionNotifier
 {
 
-    public function doSomething()
+    /**
+     * LaravelNotionNotifier constructor.
+     * @param Client|null $client
+     */
+    public function __construct(Client $client = null)
     {
-        return 'here we go';
+        $this->client = $client ?? new Client();
+
+        $this->setNotionSecret(config('notion-notifier.secret'));
+        $this->setPageId(config('notion-notifier.page_id'));
     }
+
+    public function getActiveProperties()
+    {
+        return collect(config('notion-notifier.patch'))
+            ->filter(fn($item) => $item['active'])
+            ->map(function($val, $type) {
+                return match ($type) {
+                    'git' => $this->getGitVersion($val['last_proper'] ?? true),
+                    'framework' => $this->getFrameworkVersion()
+                };
+            });
+
+    }
+
+    protected function getGitVersion($lastProper)
+    {
+        $abbrev = $lastProper ? ' --abbrev=0' : '';
+        exec('git describe' . $abbrev, $out);
+        return $out[0];
+    }
+
+    protected function getFrameworkVersion()
+    {
+        return app()->version();
+    }
+
 
 }
